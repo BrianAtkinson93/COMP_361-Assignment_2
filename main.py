@@ -1,5 +1,7 @@
 import argparse
 import sys
+import time
+import timeit
 
 from graph import problem_graph
 from grassfire import grassfire
@@ -13,24 +15,20 @@ def print_func(path: str, distance: str) -> None:
 
 def main(args: argparse.Namespace):
     if 'grassfire' in args.algorithm:
-        print(f'Grassfire Algorithm...')
-        path, distance = grassfire(problem_graph, "START", "GOAL")
+        print("Grassfire algorithm execution time:",
+              timeit.timeit(lambda: grassfire(problem_graph, "START", "GOAL"), number=1))
 
     elif 'dijkstra' in args.algorithm:
-        print(f'Dijkstra Algorithm...')
-        path, distance = dijkstra(problem_graph, 'START', 'GOAL')
+        print("Dijkstra's algorithm execution time:",
+              timeit.timeit(lambda: dijkstra(problem_graph, "START", "GOAL"), number=1))
 
     elif 'all' in args.algorithm:
-        print(f'Running Both Algorithms...')
-        print(f'Grassfire Algorithm...')
-        path, distance = grassfire(problem_graph, "START", "GOAL")
-        print_func(path, distance)
-        print(f'Dijkstra Algorithm...')
-        path, distance = dijkstra(problem_graph, 'START', 'GOAL')
+        print("Grassfire algorithm execution time:",
+              timeit.timeit(lambda: grassfire(problem_graph, "START", "GOAL"), number=1))
+        print("Dijkstra's algorithm execution time:",
+              timeit.timeit(lambda: dijkstra(problem_graph, "START", "GOAL"), number=1))
     else:
         sys.exit(1)
-
-    print_func(path, distance)
 
 
 if __name__ == '__main__':

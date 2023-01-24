@@ -1,4 +1,5 @@
 import heapq
+import time
 
 
 def dijkstra(graph: dict, start: str, goal: str) -> tuple | None:
@@ -17,6 +18,7 @@ def dijkstra(graph: dict, start: str, goal: str) -> tuple | None:
              and the second element is the distance from the start to the goal. If there is no path from start to goal
              the function returns None.
     """
+
     # Initialize the distances of all nodes to infinity
     distances = {node: float('inf') for node in graph}
     # Set the distance of the starting node to 0
