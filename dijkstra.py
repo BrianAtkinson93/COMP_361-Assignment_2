@@ -41,6 +41,8 @@ def dijkstra(graph: dict, start: str, goal: str) -> tuple | None:
                     path.append(node)
                     node = prev[node]
                 # return the path and the distance from the start to the goal
+                print(f'{list(reversed(path))}')
+                print(f'Total distance: {distances[goal]}')
                 return list(reversed(path)), distances[goal]
             else:
                 return None

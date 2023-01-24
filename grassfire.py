@@ -1,7 +1,7 @@
 import heapq
 
 
-def grassfire(graph: dict, start: str, goal: str) -> tuple | None:
+def grassfire(graph: dict, start_node: str, goal: str) -> tuple | None:
     """
     Finds the shortest path from the starting node to the goal node using the Grassfire algorithm.
 
@@ -19,9 +19,9 @@ def grassfire(graph: dict, start: str, goal: str) -> tuple | None:
     # Initialize the distances of all nodes to infinity
     distances = {node: float('inf') for node in graph}
     # Set the distance of the starting node to 0
-    distances[start] = 0
+    distances[start_node] = 0
     # initialize the queue with the starting node and its distance
-    queue = [(0, start)]
+    queue = [(0, start_node)]
     # initialize the prev dictionary to keep track of the previous node for each node on the path
     prev = {node: None for node in graph}
 
@@ -38,6 +38,8 @@ def grassfire(graph: dict, start: str, goal: str) -> tuple | None:
                     path.append(node)
                     node = prev[node]
                 # return the path and the distance from the start to the goal
+                print(f'{list(reversed(path))}')
+                print(f'Total distance: {distances[goal]}')
                 return list(reversed(path)), distances[goal]
             else:
                 return None
