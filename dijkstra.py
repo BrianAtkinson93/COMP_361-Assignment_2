@@ -15,28 +15,50 @@ def dijkstra(graph: dict) -> Tuple[List[str], int]:
     """
     start = 'START'
     goal = 'GOAL'
+
+    # Create a dictionary to store the cost of reaching each node from the start node
     costs = {start: 0}
+
+    # Create a dictionary to store the parent node for each node in the shortest path
     parents = {}
+
+    # Create a list to store the unprocessed nodes
     unprocessed = [start]
 
     while unprocessed:
+        # Get the node with the lowest cost from the unprocessed nodes list
         current_node = min(unprocessed, key=lambda x: costs[x])
+
+        # Remove the current node from the unprocessed nodes list
         unprocessed.remove(current_node)
 
-        for neighbor in graph[current_node]:
-            new_cost = costs[current_node] + graph[current_node][neighbor]["weight"]
-            if neighbor not in costs or new_cost < costs[neighbor]:
-                costs[neighbor] = new_cost
-                parents[neighbor] = current_node
-                unprocessed.append(neighbor)
+        # Iterate through the neighbors of the current node
+        for neighbour in graph[current_node]:
 
+            # Calculate the new cost to reach the neighbour
+            new_cost = costs[current_node] + graph[current_node][neighbour]["weight"]
+
+            # Check if the new cost is lower than the current cost or if the neighbour has not been processed yet
+            if neighbour not in costs or new_cost < costs[neighbour]:
+                # Update the cost and parent for the neighbour
+                costs[neighbour] = new_cost
+                parents[neighbour] = current_node
+
+                # Add the neighbour to the unprocessed list
+                unprocessed.append(neighbour)
+
+    # Check if there is no path to the goal node
     if goal not in parents:
         return None, None
 
+    # Create a list to store the shortest path
     path = [goal]
     current_node = goal
+
+    # Traverse the parent dictionary to create the path
     while current_node != start:
         current_node = parents[current_node]
         path.append(current_node)
 
+    # Return the reversed path and total cost
     return path[::-1], costs[goal]
