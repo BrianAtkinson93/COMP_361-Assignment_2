@@ -39,7 +39,7 @@ Lead Developer: Brian Atkinson<br>
 </ol>
 
 
-![img.png](img.png)
+![img.png](misc/img.png)
 
 ## Submissions:
 

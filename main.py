@@ -1,11 +1,10 @@
 import argparse
 import sys
-import time
 import timeit
 
-from map_functions import problem_graph, generate_random_map, visualize_map, write_map_to_csv
-from grassfire import grassfire
-from dijkstra import dijkstra
+from misc.map_functions import problem_graph, generate_random_map, visualize_map, write_map_to_csv
+from algorithms.grassfire import grassfire
+from algorithms.dijkstra import dijkstra
 
 
 def execute_dijkstra(graph_to_use: dict) -> None:
