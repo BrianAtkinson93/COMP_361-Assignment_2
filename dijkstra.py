@@ -1,54 +1,31 @@
-import heapq
-import time
+from typing import Any, List, Tuple
 
 
-def dijkstra(graph: dict, start: str, goal: str) -> tuple | None:
-    """
+def dijkstra(graph: dict) -> Tuple[List[str], int]:
+    start = 'START'
+    goal = 'GOAL'
+    costs = {start: 0}
+    parents = {}
+    unprocessed = [start]
 
-    Finds the shortest path from the starting node to the goal node using Dijkstra's algorithm.
+    while unprocessed:
+        current_node = min(unprocessed, key=lambda x: costs[x])
+        unprocessed.remove(current_node)
 
-    Parameters:
-    - graph (dict): a dictionary representing the graph, where keys are the nodes and values are a dictionary of
-                    neighboring nodes and the weights of the edges between them.
-    - start (str): the starting node
-    - goal (str): the goal node
+        for neighbor in graph[current_node]:
+            new_cost = costs[current_node] + graph[current_node][neighbor]["weight"]
+            if neighbor not in costs or new_cost < costs[neighbor]:
+                costs[neighbor] = new_cost
+                parents[neighbor] = current_node
+                unprocessed.append(neighbor)
 
-    Returns:
-    - tuple: a tuple of two elements, the first element is a list representing the path from start to goal,
-             and the second element is the distance from the start to the goal. If there is no path from start to goal
-             the function returns None.
-    """
+    if goal not in parents:
+        return None, None
 
-    # Initialize the distances of all nodes to infinity
-    distances = {node: float('inf') for node in graph}
-    # Set the distance of the starting node to 0
-    distances[start] = 0
-    # initialize the queue with the starting node and its distance
-    queue = [(0, start)]
-    # initialize the prev dictionary to keep track of the previous node for each node on the path
-    prev = {node: None for node in graph}
+    path = [goal]
+    current_node = goal
+    while current_node != start:
+        current_node = parents[current_node]
+        path.append(current_node)
 
-    # Repeat the following steps until the goal node is reached or the queue is empty
-    while queue:
-        # pop the node with the shortest distance from the queue
-        dist, node = heapq.heappop(queue)
-        if node == goal:
-            # if the goal is reached check if the goal node is reachable
-            if prev[goal] is not None:
-                # backtrack the path using the prev dictionary
-                path = []
-                while node is not None:
-                    path.append(node)
-                    node = prev[node]
-                # return the path and the distance from the start to the goal
-                print(f'{list(reversed(path))}')
-                print(f'Total distance: {distances[goal]}')
-                return list(reversed(path)), distances[goal]
-            else:
-                return None
-        for neighbor, weight in graph[node].items():
-            if distances[neighbor] > dist + weight:
-                distances[neighbor] = dist + weight
-                prev[neighbor] = node
-                heapq.heappush(queue, (distances[neighbor], neighbor))
-    return None
+    return path[::-1], costs[goal]
