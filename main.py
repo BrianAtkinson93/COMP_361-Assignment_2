@@ -8,7 +8,16 @@ from grassfire import grassfire
 from dijkstra import dijkstra
 
 
-def execute_dijkstra(graph_to_use):
+def execute_dijkstra(graph_to_use: dict) -> None:
+    """
+    Executes Dijkstra's algorithm on the given graph and prints the execution time and the shortest path and distance.
+
+    Parameters:
+        graph_to_use (dict): The graph to use for the algorithm.
+
+    Returns:
+        None
+    """
     result = []
     time = timeit.timeit(lambda: result.append(dijkstra(graph_to_use)), number=1)
     print(f'\nDijkstra`s Execution time: {time}')
@@ -16,7 +25,16 @@ def execute_dijkstra(graph_to_use):
     print(f'Distance: {result[0][1]}')
 
 
-def execute_grassfire(graph_to_use):
+def execute_grassfire(graph_to_use: dict) -> None:
+    """
+    Executes Grassfire's algorithm on the given graph and prints the execution time and the shortest path and distance.
+
+    Parameters:
+        graph_to_use (dict): The graph to use for the algorithm.
+
+    Returns:
+        None
+    """
     result = []
     time = timeit.timeit(lambda: result.append(grassfire(graph_to_use)), number=1)
     print(f'\nGrassfire`s Execution time: {time}')
@@ -25,8 +43,9 @@ def execute_grassfire(graph_to_use):
 
 
 def main(args: argparse.Namespace):
+
     graph_to_use = problem_graph
-    # print(graph_to_use)
+
     if args.gen_map:
         print(f'Using Randomly Generated Map ...')
         graph_to_use = generate_random_map(args)

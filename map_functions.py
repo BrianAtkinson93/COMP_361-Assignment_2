@@ -25,12 +25,13 @@ problem_graph = {
 def generate_random_map(args: argparse.Namespace) -> Dict[str, Dict[str, int]]:
     """
     Generates a random graph with a given number of nodes, edges, and maximum weight.
+
     Parameters:
-    - args (argparse.NameSpace): argparse.NameSpace to pass command line arguments
+        - args (argparse.NameSpace): argparse.NameSpace to pass command line arguments
 
     Returns:
-    - Dict[str, Dict[str, int]]: a dictionary representing the graph, where keys are the nodes and values are a dictionary of
-        neighboring nodes and the weights of the edges between them.
+        - Dict[str, Dict[str, int]]: a dictionary representing the graph, where keys are the nodes and values are a
+            dictionary of neighboring nodes and the weights of the edges between them.
     """
 
     num_nodes, num_edges, max_weight = args.nodes, args.edges, args.max_weight
@@ -54,12 +55,13 @@ def visualize_map(graph: dict) -> None:
     Displays the graph visually using NetworkX and Matplotlib
 
     Parameters:
-    - graph (dict): a dictionary representing the graph, where keys are the nodes and values are a dictionary of
-        neighboring nodes and the weights of the edges between them.
+        - graph (dict): a dictionary representing the graph, where keys are the nodes and values are a dictionary of
+            neighboring nodes and the weights of the edges between them.
 
     Returns:
-    - None
+        - None
     """
+
     print('Visualizing...')
     G = nx.DiGraph(graph)
     pos = nx.spring_layout(G, k=10)
@@ -73,7 +75,7 @@ def visualize_map(graph: dict) -> None:
 
 def write_map_to_csv(graph: dict, file_name: str) -> None:
     """
-    Writes the map to a csv file
+    Writes the graph to a csv file
 
     Parameters:
     - graph (dict): a dictionary representing the graph, where keys are the nodes and values are a dictionary of

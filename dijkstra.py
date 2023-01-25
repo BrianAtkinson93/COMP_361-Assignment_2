@@ -1,7 +1,18 @@
-from typing import Any, List, Tuple
+from typing import List, Tuple
 
 
 def dijkstra(graph: dict) -> Tuple[List[str], int]:
+    """
+    Dijkstra's algorithm for finding the shortest path between the START and GOAL nodes in a graph.
+
+    Parameters:
+        graph (dict): the graph represented as an adjacency list where each key is a node and the value is a
+            dictionary of neighboring nodes and their weights.
+
+    Returns:
+        Tuple[List[str], int]: a tuple where the first element is a list of nodes representing the shortest path,
+            and the second element is the total weight of that path. Returns (None, None) if no path is found.
+    """
     start = 'START'
     goal = 'GOAL'
     costs = {start: 0}
